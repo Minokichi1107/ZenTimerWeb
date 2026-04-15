@@ -1,0 +1,64 @@
+﻿<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zen Cooking Timer</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="zen-card">
+      <h1 class="zen-title">ZenTimer</h1>
+
+      <div class="zen-ink-circle">
+        <div class="zen-monk">禅</div>
+      </div>
+
+      <p id="timer" class="zen-time">02:30</p>
+
+      <div class="zen-set-buttons">
+        <button class="zen-chip" type="button" data-add="600">10分</button>
+        <button class="zen-chip" type="button" data-add="60">1分</button>
+        <button class="zen-chip" type="button" data-add="10">10秒</button>
+        <button id="clearBtn" class="zen-chip zen-chip-clear" type="button">クリア</button>
+      </div>
+
+      <div class="zen-controls">
+        <button id="startBtn" class="zen-btn zen-btn-light" type="button">開始</button>
+        <button id="stopBtn" class="zen-btn zen-btn-dark" type="button">停止</button>
+        <button id="resetBtn" class="zen-btn zen-btn-light" type="button">リセット</button>
+      </div>
+
+      <div class="zen-settings">
+        <button id="bellModeBtn" class="zen-chip zen-setting-btn" type="button">
+          完了ベル: 1回
+        </button>
+        <button id="bellStopModeBtn" class="zen-chip zen-setting-btn" type="button">
+          ベル停止: 30秒
+        </button>
+      </div>
+
+      <div class="zen-volume-wrap">
+        <span class="zen-volume-title">音量</span>
+        <input
+          id="volumeInput"
+          class="zen-volume"
+          type="range"
+          min="0"
+          max="1"
+          step="0.01"
+          value="0.7"
+        />
+      </div>
+
+      <p id="warning" class="zen-warning" hidden>
+        音声ファイルを配置してください: ./sounds/mokugyo.mp3 と ./sounds/bell.mp3
+      </p>
+
+      <audio id="mokugyoAudio" src="./sounds/mokugyo.mp3" preload="auto" loop></audio>
+      <audio id="bellAudio" src="./sounds/bell.mp3" preload="auto"></audio>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
