@@ -8,6 +8,20 @@
   </head>
   <body>
     <main class="zen-card">
+      <button id="settingsToggleBtn" class="zen-gear-btn" type="button" aria-label="設定を開く">
+        ⚙
+      </button>
+
+      <div id="settingsPopup" class="zen-settings-popup" hidden>
+        <p class="zen-settings-title">設定</p>
+        <button id="bellModeBtn" class="zen-chip zen-setting-btn" type="button">
+          完了ベル: 1回
+        </button>
+        <button id="bellStopModeBtn" class="zen-chip zen-setting-btn" type="button">
+          ベル停止: 30秒
+        </button>
+      </div>
+
       <h1 class="zen-title">ZenTimer</h1>
 
       <div class="zen-ink-circle">
@@ -20,22 +34,12 @@
         <button class="zen-chip" type="button" data-add="600">10分</button>
         <button class="zen-chip" type="button" data-add="60">1分</button>
         <button class="zen-chip" type="button" data-add="10">10秒</button>
-        <button id="clearBtn" class="zen-chip zen-chip-clear" type="button">クリア</button>
       </div>
 
       <div class="zen-controls">
         <button id="startBtn" class="zen-btn zen-btn-light" type="button">開始</button>
         <button id="stopBtn" class="zen-btn zen-btn-dark" type="button">停止</button>
-        <button id="resetBtn" class="zen-btn zen-btn-light" type="button">リセット</button>
-      </div>
-
-      <div class="zen-settings">
-        <button id="bellModeBtn" class="zen-chip zen-setting-btn" type="button">
-          完了ベル: 1回
-        </button>
-        <button id="bellStopModeBtn" class="zen-chip zen-setting-btn" type="button">
-          ベル停止: 30秒
-        </button>
+        <button id="clearBtn" class="zen-btn zen-btn-light" type="button">クリア</button>
       </div>
 
       <div class="zen-volume-wrap">

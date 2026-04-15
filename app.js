@@ -1,8 +1,9 @@
 ﻿const timerEl = document.getElementById("timer");
 const startBtn = document.getElementById("startBtn");
 const stopBtn = document.getElementById("stopBtn");
-const resetBtn = document.getElementById("resetBtn");
 const clearBtn = document.getElementById("clearBtn");
+const settingsToggleBtn = document.getElementById("settingsToggleBtn");
+const settingsPopup = document.getElementById("settingsPopup");
 const bellModeBtn = document.getElementById("bellModeBtn");
 const bellStopModeBtn = document.getElementById("bellStopModeBtn");
 const setButtons = Array.from(document.querySelectorAll("[data-add]"));
@@ -58,6 +59,10 @@ const addTime = (seconds) => {
 };
 
 const clearTime = () => {
+  running = false;
+  stopTick();
+  stopMokugyo();
+  stopBell();
   duration = 0;
   remaining = 0;
   updateDisplay();
@@ -181,15 +186,6 @@ const stopTimer = () => {
   stopBell();
 };
 
-const resetTimer = () => {
-  running = false;
-  stopTick();
-  stopMokugyo();
-  stopBell();
-  remaining = duration;
-  updateDisplay();
-};
-
 const toggleBellMode = () => {
   bellModeIndex = (bellModeIndex + 1) % bellModes.length;
   updateBellModeLabel();
@@ -200,17 +196,37 @@ const toggleBellStopMode = () => {
   updateBellStopModeLabel();
 };
 
+const toggleSettingsPopup = () => {
+  settingsPopup.hidden = !settingsPopup.hidden;
+};
+
+const closeSettingsPopup = () => {
+  settingsPopup.hidden = true;
+};
+
 setButtons.forEach((button) => {
   button.addEventListener("click", () => addTime(button.dataset.add));
 });
 
 startBtn.addEventListener("click", startTimer);
 stopBtn.addEventListener("click", stopTimer);
-resetBtn.addEventListener("click", resetTimer);
 clearBtn.addEventListener("click", clearTime);
 bellModeBtn.addEventListener("click", toggleBellMode);
 bellStopModeBtn.addEventListener("click", toggleBellStopMode);
+settingsToggleBtn.addEventListener("click", toggleSettingsPopup);
 volumeInput.addEventListener("input", syncVolume);
+
+document.addEventListener("click", (event) => {
+  if (settingsPopup.hidden) return;
+  const target = event.target;
+  if (!(target instanceof Node)) return;
+
+  const inPopup = settingsPopup.contains(target);
+  const onGear = settingsToggleBtn.contains(target);
+  if (!inPopup && !onGear) {
+    closeSettingsPopup();
+  }
+});
 
 mokugyoAudio.addEventListener("error", () => {
   missingMokugyo = true;
