@@ -48,7 +48,7 @@ body {
   top: 48px;
   left: 10px;
   z-index: 20;
-  width: min(230px, calc(100% - 20px));
+  width: min(280px, calc(100% - 20px));
   padding: 10px;
   border-radius: 12px;
   border: 1px solid #c9af8c;
@@ -134,17 +134,19 @@ body {
   margin-bottom: 14px;
 }
 
-.zen-settings-popup .zen-setting-btn {
+.zen-setting-btn {
+  display: block;
   width: 100%;
   height: auto;
   min-height: 44px;
   padding: 10px 12px;
   border-radius: 10px;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   line-height: 1.25;
   border: 1px solid rgb(80 54 34 / 45%);
   color: #fff6ec;
   background: linear-gradient(180deg, #6f4a34 0%, #4e3327 100%);
+  white-space: nowrap;
 }
 
 .zen-btn {
@@ -203,7 +205,9 @@ body {
     font-size: 1.25rem;
   }
 
-  .zen-settings-popup .zen-setting-btn {
-    font-size: 0.9rem;
+  .zen-setting-btn {
+    min-height: 42px;
+    padding: 8px 10px;
+    font-size: 0.82rem;
   }
 }

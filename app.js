@@ -6,6 +6,7 @@ const settingsToggleBtn = document.getElementById("settingsToggleBtn");
 const settingsPopup = document.getElementById("settingsPopup");
 const bellModeBtn = document.getElementById("bellModeBtn");
 const bellStopModeBtn = document.getElementById("bellStopModeBtn");
+const leaveBehaviorBtn = document.getElementById("leaveBehaviorBtn");
 const setButtons = Array.from(document.querySelectorAll("[data-add]"));
 const volumeInput = document.getElementById("volumeInput");
 const warningEl = document.getElementById("warning");
@@ -21,6 +22,7 @@ let missingBell = false;
 let bellPlayToken = 0;
 let bellModeIndex = 0;
 let bellStopModeIndex = 0;
+let leaveBehaviorIndex = 0;
 let bellAutoStopTimerId = null;
 
 const bellModes = [
@@ -33,6 +35,11 @@ const bellStopModes = [
   { seconds: 30, label: "ベル停止: 30秒" },
   { seconds: 60, label: "ベル停止: 60秒" },
   { seconds: null, label: "ベル停止: 手動" },
+];
+
+const leaveBehaviors = [
+  { key: "continue", label: "離脱時: 続行" },
+  { key: "stop", label: "離脱時: 停止" },
 ];
 
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
@@ -154,6 +161,10 @@ const updateBellStopModeLabel = () => {
   bellStopModeBtn.textContent = bellStopModes[bellStopModeIndex].label;
 };
 
+const updateLeaveBehaviorLabel = () => {
+  leaveBehaviorBtn.textContent = leaveBehaviors[leaveBehaviorIndex].label;
+};
+
 const startTimer = () => {
   if (remaining <= 0) {
     remaining = duration;
@@ -196,12 +207,23 @@ const toggleBellStopMode = () => {
   updateBellStopModeLabel();
 };
 
+const toggleLeaveBehavior = () => {
+  leaveBehaviorIndex = (leaveBehaviorIndex + 1) % leaveBehaviors.length;
+  updateLeaveBehaviorLabel();
+};
+
 const toggleSettingsPopup = () => {
   settingsPopup.hidden = !settingsPopup.hidden;
 };
 
 const closeSettingsPopup = () => {
   settingsPopup.hidden = true;
+};
+
+const applyLeaveBehavior = () => {
+  const leaveBehavior = leaveBehaviors[leaveBehaviorIndex].key;
+  if (leaveBehavior !== "stop") return;
+  stopTimer();
 };
 
 setButtons.forEach((button) => {
@@ -213,6 +235,7 @@ stopBtn.addEventListener("click", stopTimer);
 clearBtn.addEventListener("click", clearTime);
 bellModeBtn.addEventListener("click", toggleBellMode);
 bellStopModeBtn.addEventListener("click", toggleBellStopMode);
+leaveBehaviorBtn.addEventListener("click", toggleLeaveBehavior);
 settingsToggleBtn.addEventListener("click", toggleSettingsPopup);
 volumeInput.addEventListener("input", syncVolume);
 
@@ -228,6 +251,14 @@ document.addEventListener("click", (event) => {
   }
 });
 
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden") {
+    applyLeaveBehavior();
+  }
+});
+
+window.addEventListener("pagehide", applyLeaveBehavior);
+
 mokugyoAudio.addEventListener("error", () => {
   missingMokugyo = true;
   updateWarning();
@@ -241,4 +272,5 @@ bellAudio.addEventListener("error", () => {
 syncVolume();
 updateBellModeLabel();
 updateBellStopModeLabel();
+updateLeaveBehaviorLabel();
 updateDisplay();
