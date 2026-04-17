@@ -134,7 +134,7 @@ body {
   margin-bottom: 14px;
 }
 
-.zen-setting-btn {
+.zen-settings-popup .zen-setting-btn {
   width: 100%;
   height: auto;
   min-height: 44px;
@@ -142,6 +142,9 @@ body {
   border-radius: 10px;
   font-size: 0.95rem;
   line-height: 1.25;
+  border: 1px solid rgb(80 54 34 / 45%);
+  color: #fff6ec;
+  background: linear-gradient(180deg, #6f4a34 0%, #4e3327 100%);
 }
 
 .zen-btn {
@@ -198,5 +201,9 @@ body {
     width: 72px;
     height: 72px;
     font-size: 1.25rem;
+  }
+
+  .zen-settings-popup .zen-setting-btn {
+    font-size: 0.9rem;
   }
 }
